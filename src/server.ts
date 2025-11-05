@@ -10,6 +10,12 @@ import adapterRoutes from './parte2-adapter/PaymentRoutes';
 import decoratorRoutes from './parte2-decorator/ExporterRoutes';
 import facadeRoutes from './parte2-facade/FacadeRoutes';
 
+// Imports Parte 3
+import observerRoutes from './parte3-observer/ObserverRoutes';
+import strategyRoutes from './parte3-strategy/StrategyRoutes';
+import chainRoutes from './parte3-chain-of-responsibility/ChainRoutes';
+import templateMethodRoutes from './parte3-template-method/TemplateMethodRoutes';
+
 const app = express();
 const port = 3000;
 
@@ -31,6 +37,12 @@ app.use('/factory-method', factoryMethodRoutes);
 app.use('/adapter', adapterRoutes);
 app.use('/decorator', decoratorRoutes);
 app.use('/facade', facadeRoutes);
+
+// --- Rotas Parte 3 ---
+app.use('/observer', observerRoutes);
+app.use('/strategy', strategyRoutes);
+app.use('/chain', chainRoutes);
+app.use('/template-method', templateMethodRoutes);
 
 app.listen(port, () => {
     logger.info(`Servidor rodando em http://localhost:${port}`);
