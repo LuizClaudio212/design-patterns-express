@@ -16,6 +16,9 @@ import strategyRoutes from './parte3-strategy/StrategyRoutes';
 import chainRoutes from './parte3-chain-of-responsibility/ChainRoutes';
 import templateMethodRoutes from './parte3-template-method/TemplateMethodRoutes';
 
+// Imports Parte 4
+import integratorRoutes from './parte4-integrador/IntegradorRoutes';
+
 const app = express();
 const port = 3000;
 
@@ -43,6 +46,9 @@ app.use('/observer', observerRoutes);
 app.use('/strategy', strategyRoutes);
 app.use('/chain', chainRoutes);
 app.use('/template-method', templateMethodRoutes);
+
+// --- Rotas Parte 4 ---
+app.use('/ecommerce', integratorRoutes); // A Rota do Projeto Integrador
 
 app.listen(port, () => {
     logger.info(`Servidor rodando em http://localhost:${port}`);

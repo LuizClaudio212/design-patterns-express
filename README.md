@@ -107,3 +107,43 @@ Isso resolve o problema de centralizar todos os logs em um único array.
     * `POST /template-method/process`: Processa um pagamento usando o fluxo do template method.
         * **Body (JSON) (Cartão):** `{ "method": "credit_card", "amount": 0.0, "cardDetails": { ... } }`
         * **Body (JSON) (PayPal):** `{ "method": "paypal", "amount": 0.0, "paypalEmail": "..." }`
+
+## Parte 4: Projeto Integrador
+
+### Exercício 4.1: E-commerce com Múltiplos Padrões
+
+**Descrição do Problema:** Implementar uma aplicação de e-commerce aplicando múltiplos padrões de projeto para resolver diferentes aspectos do sistema.
+* **Padrão Aplicado e Justificativa:** Esta parte combina os padrões anteriores em um único endpoint de `POST /ecommerce/checkout`, que simula um fluxo de finalização de compra.
+    1.  **Facade[cite: 92]:** O próprio endpoint atua como uma Facade, simplificando a complexa operação de checkout em uma única chamada de API.
+    2.  **Singleton:** O `LoggerService` é usado em todas as etapas para registrar o fluxo de forma centralizada.
+    3.  **Builder:** O `ProductBuilder` é usado para demonstrar a criação de objetos-produto complexos programaticamente.
+    4.  **Chain of Responsibility:** Antes de processar, o pedido (`Order`) é passado por uma cadeia de validação (`InventoryValidator` -> `FraudDetector`), que pode interromper o fluxo se necessário.
+    5.  **Strategy:** O `PricingService` é usado com uma `DiscountStrategy` (injetada com base na requisição) para calcular o preço final com desconto.
+    6.  **Template Method:** O `AbstractPaymentProcessor` (com suas classes filhas `CreditCardProcessor` ou `PaypalProcessor`) é usado para processar o pagamento, garantindo que o fluxo (validar, processar, notificar) seja sempre o mesmo.
+    7.  **Observer[cite: 82]:** Ao final, o `StockMarket` (reutilizado como um 'observer' de pedidos) é notificado para que outros sistemas (como SMS, Email) possam ser alertados sobre a mudança.
+* **Endpoints da API:**
+    * `POST /ecommerce/checkout`: Executa o fluxo de checkout completo, integrando todos os padrões.
+        * **Body (JSON) Exemplo:**
+            {
+  "cart": {
+    "items": [
+      {
+        "productId": "prod_123",
+        "quantity": 1,
+        "price": 1000
+      }
+    ]
+  },
+  "paymentDetails": {
+    "method": "credit_card",
+    "amount": 0,
+    "cardDetails": {
+      "number": "1234123412345678",
+      "cvv": "123"
+    }
+  },
+  "discount": {
+    "type": "percentage",
+    "value": 10
+  }
+}
