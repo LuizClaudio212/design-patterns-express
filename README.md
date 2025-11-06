@@ -2,8 +2,7 @@
 
 Este repositório contém as resoluções dos exercícios da atividade de Design Patterns, utilizando Express.js e TypeScript.
 ## Alunos:
-Luiz Claudio Vieira da Silva Junior
-Jose Gouveia
+Luiz Claudio Vieira da Silva Junior e Jose Gouveia
 ## Como Executar o Projeto
 
 1.  Clone este repositório:
